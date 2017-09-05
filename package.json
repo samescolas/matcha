@@ -1,0 +1,13 @@
+{
+	"name": "matcha",
+	"version": "1.0.0",
+	"description": "Dating app",
+	"author": "Sam Escolas<samescolas@gmail.com>",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"express": "^4.13.3"
+	}
+}
