@@ -1,1 +1,6 @@
-LS_COLORS=$LS_COLORS: 'di=0;35:' ; export LS_COLORS
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gd='git diff'
+alias gp='git push'
+alias gpl='git pull'
