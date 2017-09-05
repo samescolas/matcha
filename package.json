@@ -3,9 +3,9 @@
 	"version": "1.0.0",
 	"description": "Dating app",
 	"author": "Sam Escolas<sescolas@student.42.us.org>",
-	"main": "server.js",
+	"main": "app.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node app.js"
 	},
 	"dependencies": {
 		"express": "^4.13.3"
