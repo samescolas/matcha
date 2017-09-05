@@ -2,7 +2,7 @@
 	"name": "matcha",
 	"version": "1.0.0",
 	"description": "Dating app",
-	"author": "Sam Escolas<samescolas@gmail.com>",
+	"author": "Sam Escolas<sescolas@student.42.us.org>",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js"
