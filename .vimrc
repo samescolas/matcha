@@ -1,4 +1,4 @@
-color delek
+color desert
 
 syntax on
 syntax enable
