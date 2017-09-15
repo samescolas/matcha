@@ -1,11 +1,11 @@
 FROM debian:wheezy
 
-ENV APP_PATH /usr/src/app
+ENV FLASK_APP /usr/src/matcha
 
-RUN mkdir -p $APP_PATH
-COPY ./ $APP_PATH
+RUN mkdir -p $FLASK_APP
+COPY ./ $FLASK_APP
 
-RUN cp $APP_PATH/.[vb]* /root/
+RUN cp $FLASK_APP/.[vb]* /root/
 
 RUN apt-get update && apt-get upgrade && apt-get install -y \
 	python3 \
