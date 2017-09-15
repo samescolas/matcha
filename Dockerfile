@@ -1,6 +1,7 @@
 FROM debian:wheezy
 
-ENV FLASK_APP /usr/src/matcha
+ENV APP_DIR /usr/src/matcha
+ENV FLASK_APP $APP_DIR/run.py
 
 RUN mkdir -p $FLASK_APP
 COPY ./ $FLASK_APP
