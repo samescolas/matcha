@@ -10,7 +10,7 @@ RUN cp $APP_DIR/.[vb]* /root/
 
 RUN apt-get update && apt-get upgrade && apt-get install -y \
 	apache2 \
-	libapache2-mod-wsg \
+	libapache2-mod-wsgi \
 	mysql-client \
 	mysql-server \
 	python3 \
