@@ -13,3 +13,7 @@ def login():
 	return render_template( 'login.html', 
 				title='Sign In', 
 				form=form)
+
+@app.errorhandler(404)
+def not_found(error):
+	return render_template('404.html'), 404
