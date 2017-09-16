@@ -1,6 +1,6 @@
 FROM debian:wheezy
 
-ENV APP_DIR /usr/src/matcha
+ENV APP_DIR /var/www/matcha
 ENV FLASK_APP $APP_DIR/run.py
 
 RUN mkdir -p $APP_DIR
