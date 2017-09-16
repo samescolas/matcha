@@ -1,4 +1,4 @@
-import path
+import os
 
 # WTForms CSRF protection
 WTF_CSRF_ENABLED = True
