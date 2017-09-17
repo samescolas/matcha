@@ -7,11 +7,11 @@ FLUSH PRIVILEGES;
 USE matcha;
 
 CREATE TABLE locations (
-		id INT NOT NULL AUTO_INCREMENT,
-		longitude INT NOT NULL,
-		latitude INT NOT NULL,
-		name VARCHAR(64) NOT NULL,
-		PRIMARY KEY (id)
+	id INT NOT NULL AUTO_INCREMENT,
+	longitude INT NOT NULL,
+	latitude INT NOT NULL,
+	name VARCHAR(64) NOT NULL,
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE users (
@@ -93,17 +93,17 @@ CREATE TABLE email_verification (
 );
 
 CREATE TABLE interests (
-		id INT NOT NULL AUTO_INCREMENT,
-		label VARCHAR(64) NOT NULL,
-		PRIMARY KEY (id)
+	id INT NOT NULL AUTO_INCREMENT,
+	label VARCHAR(64) NOT NULL,
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE user_interests (
-		id INT NOT NULL AUTO_INCREMENT,
-		user_id INT NOT NULL,
-		interest_id INT NOT NULL,
-		UNIQUE(user_id, interest_id),
-		PRIMARY KEY (id),
-		FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-		FOREIGN KEY (interest_id) REFERENCES interests(id) ON DELETE CASCADE
+	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	interest_id INT NOT NULL,
+	UNIQUE(user_id, interest_id),
+	PRIMARY KEY (id),
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+	FOREIGN KEY (interest_id) REFERENCES interests(id) ON DELETE CASCADE
 );
