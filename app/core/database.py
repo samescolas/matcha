@@ -14,7 +14,6 @@ class Database:
 	# Executes query and stores number of records in self.records
 	# and results in self.results. Returns True if query returns results.
 	def query(self, sql, params=[]):
-		print(sql)
 		self.error = False
 		try:
 			if len(params) > 0:
@@ -39,7 +38,6 @@ class Database:
 		for key in fields:
 			params += "{}, ".format(fields[key])
 		params = params[:-2]
-		print(sql)
 		try:
 			self.curr.execute(sql, [params])
 			self.db.commit()
@@ -51,5 +49,4 @@ class Database:
 	# Simple function to get a single record from the database by id or other equivalence.
 	def get(self, table, field_id, field_val):
 		sql = "SELECT * FROM {} WHERE {} = '{}';".format(table, field_id, field_val)
-		print(sql)
 		return self.query(sql)
