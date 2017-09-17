@@ -6,9 +6,8 @@ users = []
 usernames = ['samescolas', 'liennecat', '0x11', '000', '000', 'testing', 'something', 'lastone']
 
 for name in usernames:
-	users.append(User(db, '{}@gmail.com'.format(name), 'testing'))
-
-for user in users:
+	user = User(db, '{}@gmail.com'.format(name), 'testing')
+	users.append(user)
 	if user.available:
 		print 'username {} is available!'.format(user.email)
 		if user.create():
