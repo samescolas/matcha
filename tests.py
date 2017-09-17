@@ -14,5 +14,5 @@ for name in usernames:
 			print('user_id {} created!'.format(user.user_id))
 		else:
 			print('Unable to create user.')
-	else:
+	else: # load user from database
 		print 'username {} is already taken'.format(user.email)
