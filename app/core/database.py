@@ -9,30 +9,44 @@ class Database:
 					  passwd=my_passwd,
 					  db=my_db)
 		self.curr = self.db.cursor()
+		self.error = False
 
+	# Executes query and stores number of records in self.records
+	# and results in self.results. Returns True if query returns results.
+	def query(self, sql, params=[]):
+		self.error = False
+		try:
+			if len(params) > 0:
+				self.records = self.curr.execute(sql, [params])
+			else:
+				self.records = self.curr.execute(sql)
+		except MySQLdb.Error, e:
+			print 'MySQL Error: {}'.format(str(e))
+			self.error = True
+		if not self.error and self.records > 0:
+			self.results = self.curr.fetchall()
+			return True
+		return False
+		
+	# insert single record into database. Returns id of inserted row.
 	def put(self, table, fields):
 		sql = "INSERT INTO {} (".format(table)
-		vals = ""
+		params = ""
 		for key in fields:
 			sql += "{}, ".format(key)
 		sql = sql[:-2] + ') VALUES (%s);'
 		for key in fields:
-			vals += "{}, ".format(fields[key])
-		vals = vals[:-2]
-		print(sql)
+			params += "{}, ".format(fields[key])
+		params = params[:-2]
 		try:
-			self.curr.execute(sql, [vals])
+			self.curr.execute(sql, [params])
+			self.db.commit()
 		except MySQLdb.Error, e:
 			print 'MySQL Error: {}'.format(str(e))
-		print "Inserted id: {}".format(self.curr.lastrowid)
-		self.db.commit()
+			self.error = True
+		return self.curr.lastrowid
 
+	# Simple function to get a single record from the database by id or other equivalence.
 	def get(self, table, field_id, field_val):
-		sql = "SELECT * FROM {} WHERE {} = {};".format(table, field_id, field_val)
-		print(sql)
-		try:
-			records = self.curr.execute(sql)
-			if records > 0:
-				return self.curr.fetchall()
-		except MySQLdb.Error, e:
-			print 'MySQL Error: {}'.format(str(e))
+		sql = "SELECT * FROM {} WHERE {} = '{}';".format(table, field_id, field_val)
+		return self.query(sql)
