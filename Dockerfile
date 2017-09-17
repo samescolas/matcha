@@ -18,7 +18,7 @@ RUN apt-get update && apt-get upgrade && apt-get install -y \
 	git \
 	vim
 
-RUN pip install Flask && pip install Flask-PyMongo && pip install flask_wtf
+RUN pip install Flask && pip install flask_wtf
 
 RUN service mysql start && \
 		mysqladmin -u root password matcha && \
