@@ -95,6 +95,7 @@ CREATE TABLE email_verification (
 CREATE TABLE interests (
 	id INT NOT NULL AUTO_INCREMENT,
 	label VARCHAR(64) NOT NULL,
+	UNIQUE(label),
 	PRIMARY KEY (id)
 );
 
