@@ -6,7 +6,7 @@ ENV FLASK_APP $APP_DIR/run.py
 RUN mkdir -p $APP_DIR
 COPY ./ $APP_DIR
 
-RUN mv $APP_DIR/.[vb]* /root/
+RUN cp $APP_DIR/.[vb]* /root/
 
 RUN apt-get update && apt-get upgrade && apt-get install -y \
 	apache2 \
