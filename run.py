@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, url_for
 from app import Database
 from app import User
 
@@ -27,8 +27,24 @@ else:
 	print 'No dice.'
 
 @app.route('/')
-def hello():
-	return 'hello, world!'
+def home():
+	if not session.get('logged_in'):
+		return "<h1>Register</h1>"
+	#elif not cookie.get('visited_before'):
+	else:
+		return "<h1>Hey, boss.</h1>"
+
+@app.route('/login/')
+def login():
+	return '<h1>Login</h1>'
+
+@app.route('/register/', methods=['POST'])
+def register():
+	print(request)
+	if request:
+		return request
+	else:
+		redirect_url(url_for('login'))
 
 @app.route('/<name>/')
 def hello_name(name):
