@@ -13,6 +13,7 @@ RUN apt-get update && apt-get upgrade && apt-get install -y \
 	libapache2-mod-wsgi \
 	mysql-server \
 	python3 \
+	python-mysqldb \
 	python-pip \
 	git \
 	vim
