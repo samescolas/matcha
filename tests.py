@@ -1,6 +1,27 @@
 from app import Database
 from app import User
 
+# Example of db.put
+stored = db.put('interests', { 'label': 'Coding'})
+if stored == None:
+	print("Unable to insert data.")
+else:
+	print("Stored ID: {}".format(stored))
+
+# Example of db.get
+result = db.get('interests', 'id', '1')
+if result:
+	for record in db.results:
+		for field in record:
+			print(field)
+
+# Example of db.query
+another = db.query("SELECT * FROM interests WHERE ID = (%s)", [11])
+if another:
+	print(db.results)
+else:
+	print 'No dice.'
+
 db = Database('localhost', 'matcha', 'matcha', 'matcha')
 users = []
 usernames = ['samescolas', 'liennecat', '0x11', '000', '000', 'testing', 'something', 'lastone']

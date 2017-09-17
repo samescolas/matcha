@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, session
+from flask import Flask, request, url_for, session, redirect, make_response
 from app import Database
 from app import User
 from app import login, register
@@ -6,37 +6,20 @@ from app import login, register
 app = Flask(__name__)
 db = Database('localhost', 'matcha', 'matcha', 'matcha')
 
-# Example of db.put
-stored = db.put('interests', { 'label': 'Coding'})
-if stored == None:
-	print("Unable to insert data.")
-else:
-	print("Stored ID: {}".format(stored))
-
-# Example of db.get
-result = db.get('interests', 'id', '1')
-if result:
-	for record in db.results:
-		for field in record:
-			print(field)
-
-# Example of db.query
-another = db.query("SELECT * FROM interests WHERE ID = (%s)", [11])
-if another:
-	print(db.results)
-else:
-	print 'No dice.'
-
 app.register_blueprint(register, url_prefix='/register')
 app.register_blueprint(login, url_prefix='/login')
 
 @app.route('/')
 def home():
-	if not session.get('logged_in'):
-		return "<h1>Register</h1>"
-	#elif not cookie.get('visited_before'):
+	if session.get('logged_in'):
+		return redirect(url_for('home'))
+	# This should really be done upon successful registration.
+	elif request.cookies.get('signedup') == None:
+		resp = make_response(redirect(url_for('register')))
+		resp.set_cookie('signedup', '1')
+		return resp
 	else:
-		return "<h1>Hey, boss.</h1>"
+		return redirect(url_for('login'))
 
 @app.route('/login/')
 def login():
