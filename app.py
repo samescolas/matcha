@@ -1,6 +1,11 @@
 from flask import Flask
+import MySQLdb
 
 app = Flask(__name__)
+db = MySQLdb.connect(host="localhost",
+		     user="matcha",
+		     passwd="matcha",
+		     db="matcha")
 
 @app.route('/')
 def hello():
