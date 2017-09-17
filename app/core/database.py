@@ -9,3 +9,7 @@ class Database:
 					  passwd=my_passwd,
 					  db=my_db)
 		self.curr = self.db.cursor()
+
+	def get(self, table, field_id, field_val):
+		sql = "SELECT * FROM {} WHERE {} == {}".format(table, field_id, field_val)
+		print(sql)
