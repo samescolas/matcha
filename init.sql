@@ -71,18 +71,19 @@ CREATE TABLE likes (
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (liked_user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
+/*
 CREATE TABLE messages (
 	id INT NOT NULL AUTO_INCREMENT,
 	sender_id INT NOT NULL,
 	receiver_id INT NOT NULL,
-	content VARCHAR(500),
+	content VARCHAR(500) NOT NULL,
 	read INT NOT NULL DEFAULT 0,
 	sent_dt DATETIME NOT NULL DEFAULT NOW(),
 	PRIMARY KEY (id),
 	FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (receiver_id) REFERENCES users(id) ON DELETE CASCADE
 );
+*/
 
 CREATE TABLE email_verification (
 	id INT NOT NULL AUTO_INCREMENT,
