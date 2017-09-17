@@ -4,7 +4,8 @@ from app import Database
 app = Flask(__name__)
 db = Database('localhost', 'matcha', 'matcha', 'matcha')
 
-db.get('users', 'id', '2')
+db.put('interests', { 'label': 'Soccer'})
+print(db.get('interests', 'id', 14))
 
 @app.route('/')
 def hello():
