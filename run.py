@@ -1,6 +1,7 @@
-from flask import Flask, request, url_for
+from flask import Flask, request, url_for, session
 from app import Database
 from app import User
+from app import login, register
 
 app = Flask(__name__)
 db = Database('localhost', 'matcha', 'matcha', 'matcha')
@@ -26,6 +27,9 @@ if another:
 else:
 	print 'No dice.'
 
+app.register_blueprint(register, url_prefix='/register')
+app.register_blueprint(login, url_prefix='/login')
+
 @app.route('/')
 def home():
 	if not session.get('logged_in'):
@@ -46,7 +50,7 @@ def register():
 	else:
 		redirect_url(url_for('login'))
 
-@app.route('/<name>/')
+@app.route('/user/<name>/')
 def hello_name(name):
 	print 'name: {}'.format(name)
 	user = User(db, name, 'test')

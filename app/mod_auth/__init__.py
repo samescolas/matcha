@@ -1,4 +1,2 @@
-from flask import Blueprints
-from views import *
-
-mod_auth = Blueprint('auth', __name__, template_folder="templates")
+from login import login
+from register import register
