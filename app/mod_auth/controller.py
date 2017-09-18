@@ -1,8 +1,21 @@
-from flask import Blueprint, render_template, request, url_for, redirect
+from flask import Blueprint, render_template, request, url_for, redirect, session, make_response
 from forms import LoginForm
 from .. import User
 
 auth = Blueprint('auth', __name__, template_folder="templates")
+
+@auth.route('/')
+def home():
+	if session.get('logged_in'):
+		return redirect(url_for('home'))
+	# This should really be done upon successful registration.
+	elif request.cookies.get('signedup') == None:
+		return redirect(url_for('auth.register'))
+		#resp = make_response(redirect(url_for('auth.register')))
+		#resp.set_cookie('signedup', '1')
+		return resp
+	else:
+		return redirect(url_for('auth.login'))
 
 @auth.route('/login/', methods=['GET', 'POST'])
 def login():

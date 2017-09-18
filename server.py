@@ -9,19 +9,21 @@ app = Flask(__name__)
 app.secret_key = 's3cret'
 csrf = CSRFProtect(app)
 
+# Auth contains all routing from / until logged in.
 app.register_blueprint(auth)
 
-@app.route('/')
-def home():
-	if session.get('logged_in'):
-		return redirect(url_for('home'))
-	# This should really be done upon successful registration.
-	elif request.cookies.get('signedup') == None:
-		resp = make_response(redirect(url_for('auth.register')))
-		resp.set_cookie('signedup', '1')
-		return resp
-	else:
-		return redirect(url_for('auth.login'))
+
+#@app.route('/')
+#def home():
+	#if session.get('logged_in'):
+		#return redirect(url_for('home'))
+	## This should really be done upon successful registration.
+	#elif request.cookies.get('signedup') == None:
+		#resp = make_response(redirect(url_for('auth.register')))
+		#resp.set_cookie('signedup', '1')
+		#return resp
+	#else:
+		#return redirect(url_for('auth.login'))
 
 #@app.route('/favicon.ico')
 #def favicon():
