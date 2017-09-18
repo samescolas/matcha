@@ -2,10 +2,10 @@ from flask import Blueprint, render_template, request, url_for, redirect
 from forms import LoginForm
 from .. import User
 
-login = Blueprint('login', __name__, template_folder="templates")
+auth = Blueprint('auth', __name__, template_folder="templates")
 
-@login.route('/', methods=['GET', 'POST'])
-def login_page():
+@auth.route('/login/', methods=['GET', 'POST'])
+def login():
 	form = LoginForm(request.form)
 	if request.method == 'POST' and form.validate():
 		user = User(form.email.data, form.passwd.data)
@@ -17,3 +17,8 @@ def login_page():
 		else:
 			form.errors['Invalid password'] = 'Invalid password'
 	return render_template('login.html', form=form)
+
+
+@auth.route('/register/')
+def register():
+	return render_template('register.html')

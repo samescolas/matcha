@@ -23,6 +23,6 @@ RUN pip install Flask && pip install flask_wtf
 RUN service mysql start && \
 		mysqladmin -u root password matcha && \
 		mysqladmin create matcha && \
-		mysql -u root -e "$(cat $APP_DIR/init.sql)"
+		mysql -u root -e "$(cat $APP_DIR/config.sql)"
 
 ENTRYPOINT bash

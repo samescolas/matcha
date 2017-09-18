@@ -1,4 +1,4 @@
-from .. import Database
+from . import Database
 
 class User:
 
