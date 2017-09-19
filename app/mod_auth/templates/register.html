@@ -5,9 +5,9 @@
 	</head>
 	<body>
 		<h1>Register</h1>
-		<form action="/register" method="POST">
+		<form method="POST">
 			{{ form.csrf_token }}
-			<input autofocus="autofocus" type="text" name="email" placeholder = "Email Address" id="email" value="{{ form.email }}" />
+			<input autofocus="autofocus" type="text" name="email" placeholder = "Email Address" id="email" value="" />
 			<input type="password" name="passwd" placeholder="Password" id="passwd" />
 			<input type="password" name="passwd2" placeholder="Password Again" id="passwd2" />
 			<input type="submit" value="Register" />

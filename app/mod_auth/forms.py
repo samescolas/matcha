@@ -5,16 +5,16 @@ from wtforms import validators
 class LoginForm(FlaskForm):
 	email = StringField('Email Address', [validators.Length(min=4, max=32)])
 	passwd = PasswordField('Password', [
-		validators.Length(min=8, max=20),
-		validators.DataRequired()
+		validators.DataRequired(),
+		validators.Length(min=8, max=20)
 	])
 	remember = BooleanField('Remember me?')
 
 class RegistrationForm(FlaskForm):
 	email = StringField('Email Address', [validators.Length(min=4, max=32)])
 	passwd = PasswordField('New Password', [
+		validators.DataRequired(),
 		validators.Length(min=8, max=20),
-		validators.EqualTo('confirm', message='Passwords must match'),
-		validators.DataRequired()
+		validators.EqualTo('passwd2', message='Passwords must match')
 	])
-	confirm = PasswordField('Confirm Password')
+	passwd2 = PasswordField('Confirm Password')
