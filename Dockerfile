@@ -30,8 +30,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh && \
 	chmod a+x nodesource_setup.sh && \
 	/bin/bash nodesource_setup.sh && \
 	rm nodesource_setup.sh && \
-	apt-get install -y nodejs
-
-RUN npm install -g npm
+	apt-get install -y nodejs && \
+	npm install -g npm
 
 ENTRYPOINT bash
