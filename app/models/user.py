@@ -15,5 +15,5 @@ class User:
 			return False
 		return True
 	def auth(self):
-		self.is_logged_in = False
+		self.is_logged_in = True
 			

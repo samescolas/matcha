@@ -1,4 +1,4 @@
-FROM phusion/passenger-full
+FROM debian:latest
 
 ENV APP_DIR /var/www/matcha
 ENV FLASK_APP $APP_DIR/run.py
@@ -20,9 +20,9 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install --upgrade pip && pip install Flask && pip install flask_wtf
 
-#RUN sudo service mysql start && \
-#		mysqladmin -u root password matcha && \
-#		mysqladmin create matcha && \
-#		mysql -u root -e "$(cat $APP_DIR/config.sql)"
+RUN 	service mysql start && \
+		mysqladmin -u root password matcha && \
+		mysqladmin create matcha && \
+		mysql -u root -e "$(cat $APP_DIR/config.sql)"
 
 ENTRYPOINT bash
