@@ -6,7 +6,7 @@ auth = Blueprint('auth', __name__, template_folder="templates")
 
 @auth.route('/')
 def home():
-	return render_template('index.html');
+	return render_template('index2.html');
 	if session.get('logged_in'):
 		return redirect(url_for('home'))
 	elif request.cookies.get('signedup') == None:
