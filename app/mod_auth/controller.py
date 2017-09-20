@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, redirect, session, make_response
+from flask import Blueprint, render_template, request, url_for, redirect, session, make_response, jsonify
 from forms import LoginForm, RegistrationForm
 from .. import User
 
@@ -13,6 +13,27 @@ def home():
 		return redirect(url_for('auth.register'))
 	else:
 		return redirect(url_for('auth.login'))
+
+@auth.route('/user/', methods=['GET'])
+def get_all_users():
+	user = User('', '')
+	if not user.db.get('users', '1', '1'):
+		return jsonify({'message': 'No users found.'}), 404
+	users = user.db.results[:]
+	obj = {}
+	for record in users:
+		obj[record[0]] = {
+			'user_id': record[0],
+			'f_name': record[1],
+			'l_name': record[2],
+			'age': record[4],
+			'gender': record[5],
+			'location_id': record[7],
+			'sexual_preference': record[10],
+			'active': record[11]
+		}
+	del user
+	return jsonify({'data': obj})
 
 @auth.route('/login/', methods=['GET', 'POST'])
 def login():
