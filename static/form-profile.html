@@ -1,0 +1,25 @@
+<div class="form-group">
+	<label for="email">Email</label>
+	<input type="text" autofocus="autofocus" class="form-control" name="email" ng-model="formData.email">
+	<p ng-show="formData.email.length > 0 && !validEmail()" class="help-block">Invalid email address.</p>
+</div>
+
+<div class="form-group">
+	<label for="passwd">Password</label>
+	<input type="password" class="form-control" name="passwd" ng-model="formData.passwd">
+	<p ng-show="formData.passwd.length > 0 && !validPasswd()" class="help-block">Invalid password.</p>
+</div>
+
+<div class="form-group">
+	<label for="passwd2">Password</label>
+	<input type="password" class="form-control" name="passwd2" ng-model="formData.passwd2">
+	<p ng-show="formData.passwd.length + formData.passwd2.length > 0 && !pwMatch()" class="help-block">Passwords must match.</p>
+</div>
+
+<div class="form-group row">
+<div class="col-xs-6 col-xs-offset-3">
+	<a ng-if="validPasswd() && validEmail()" ui-sref="form.interests" class="btn btn-block btn-info">
+	Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+	</a>
+</div>
+</div>
