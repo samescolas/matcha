@@ -3,10 +3,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User:
 
-	def __init__(self, email, passwd):
+	def __init__(self, email):
 		self.db = Database('localhost', 'matcha', 'matcha', 'matcha')
 		self.email = email
-		self.passwd = self.hash_password(passwd)
 		self.available = not self.db.get('users', 'email', email)
 		self.data = self.db.results
 		self.user_id = 0
@@ -19,8 +18,13 @@ class User:
 		if self.user_id == None:
 			return False
 		return True
-	def auth(self):
-		self.is_logged_in = True
+
+	def auth(self, passwd):
+		if self.available:
+			return False
+		real_pass = self.db.get('shadow', 'user_id', self.data[0])
+		return True
+		return check_password_hash(real_pass, passwd)
 
 	@staticmethod
 	def hash_password(password):

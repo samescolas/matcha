@@ -8,12 +8,8 @@
 		<h1>Login</h1>
 		<p>This is the login page for Matcha!</p>
 		<form method=POST>
-			{{ form.csrf_token }}
-			<dl>
-				{{ render_field(form.email) }}
-				{{ render_field(form.passwd) }}
-				{{ render_field(form.remember) }}
-			</dl>
+			<input type="email" name="email" id="email" autofocus="autofocus" placeholder="example@test.com" /> <br />
+			<input type="password" name="passwd" id="passwd" placeholder="Password" />
 			<p><input type="submit" value="Register" /></p>
 		</form>
 	</body>
