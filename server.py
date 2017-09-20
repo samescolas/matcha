@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from flask import Flask, request, url_for, session, redirect, make_response, g
+from flask import Flask, request, url_for, session, redirect, make_response
 from flask_wtf.csrf import CSRFProtect
 from app import User
 from app import auth
