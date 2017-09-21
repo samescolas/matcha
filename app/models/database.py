@@ -41,7 +41,6 @@ class Database:
 		sql = sql[:-2] + ');'
 		for key in fields:
 			params.append(fields[key])
-		print("SQL: {}".format(sql))
 		print(params)
 		try:
 			self.curr.execute(sql, params)
