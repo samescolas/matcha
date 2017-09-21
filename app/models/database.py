@@ -33,15 +33,18 @@ class Database:
 	# insert single record into database. Returns id of inserted row.
 	def put(self, table, fields):
 		sql = "INSERT INTO {} (".format(table)
-		params = ""
+		params = []
 		for key in fields:
 			sql += "{}, ".format(key)
-		sql = sql[:-2] + ') VALUES (%s);'
+		sql = sql[:-2] + ') VALUES ('
+		sql = sql + ("%s, " * len(fields))
+		sql = sql[:-2] + ');'
 		for key in fields:
-			params += "{}, ".format(fields[key])
-		params = params[:-2]
+			params.append(fields[key])
+		print("SQL: {}".format(sql))
+		print(params)
 		try:
-			self.curr.execute(sql, [params])
+			self.curr.execute(sql, params)
 			self.db.commit()
 		except MySQLdb.Error, e:
 			print 'MySQL Error: {}'.format(str(e))
