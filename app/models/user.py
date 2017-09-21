@@ -21,7 +21,7 @@ class User:
 		success = self.db.put('shadow', {
 			'user_id' : self.user_id,
 			'passwd' : self.hash_password(passwd)
-		}) == None;
+		}) != None;
 		return success
 
 	def auth(self, passwd):
