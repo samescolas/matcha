@@ -29,14 +29,11 @@ def get_all_users():
 
 @api.route('/users', methods=['POST'])
 def create_user():
-	print('inside create_user')
 	data = request.get_json()
 	if data == None:
 		return jsonify({'message': 'No data provided.'}), 403
-	print('here')
 	if 'email' not in data or 'passwd' not in data:
 		return jsonify({'message': 'Something went wrong.'}), 403
-	print('also here')
 	user = User(data['email'])
 	if not user.available:
 		return jsonify({'message': 'Email already registered.'}), 403
