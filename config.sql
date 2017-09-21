@@ -36,7 +36,6 @@ CREATE TABLE shadow (
 	id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	passwd CHAR(64),
-	salt CHAR(32),
 	PRIMARY KEY (id),
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
