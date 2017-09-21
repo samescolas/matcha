@@ -15,10 +15,7 @@ class User:
 			self.db.close_connection()
 
 	def add(self, passwd):
-		if isinstance(passwd, str) and passwd.length > 7:
-			self.user_id = self.db.put('users', { 'email': self.email })
-		else:
-			return False
+		self.user_id = self.db.put('users', { 'email': self.email })
 		if self.user_id == None:
 			return False
 		success = self.db.put('shadow', {
