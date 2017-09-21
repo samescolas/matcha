@@ -19,7 +19,9 @@ RUN apt-get update && apt-get install -y \
 	git \
 	vim
 
-RUN pip install --upgrade pip && pip install Flask && pip install flask_wtf
+WORKDIR /var/www/matcha
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 RUN service mysql start && \
 	mysqladmin -u root password matcha && \
