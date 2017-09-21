@@ -44,7 +44,7 @@ def create_user():
 	if id == False:
 		return jsonify({'message': 'Something went wrong.'}), 403
 	else:
-		return jsonify({'message': 'Success', 'user_id': id}), 200
+		return jsonify({'message': 'Success', 'user_id': user.user_id}), 200
 
 @api.route('/users/<user_id>', methods=['GET'])
 def get_user(user_id):
