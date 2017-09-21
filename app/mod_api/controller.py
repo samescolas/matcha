@@ -31,6 +31,8 @@ def get_all_users():
 def create_user():
 	print('inside create_user')
 	data = request.get_json()
+	if data == None:
+		return jsonify({'message': 'No data provided.'}), 403
 	print('here')
 	if 'email' not in data or 'passwd' not in data:
 		return jsonify({'message': 'Something went wrong.'}), 403
@@ -38,8 +40,8 @@ def create_user():
 	user = User(data['email'])
 	if not user.available:
 		return jsonify({'message': 'Email already registered.'}), 403
-	id = user.add()
-	if id == None:
+	id = user.add(data['passwd'])
+	if id == False:
 		return jsonify({'message': 'Something went wrong.'}), 403
 	else:
 		return jsonify({'message': 'Success', 'user_id': id}), 200
