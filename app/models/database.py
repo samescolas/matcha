@@ -10,6 +10,8 @@ class Database:
 					  db=my_db)
 		self.curr = self.db.cursor()
 		self.error = False
+		self.results = []
+		self.records = 0
 
 	# Executes query and stores number of records in self.records
 	# and results in self.results. Returns True if query returns results.
@@ -50,3 +52,7 @@ class Database:
 	def get(self, table, field_id, field_val):
 		sql = "SELECT * FROM {} WHERE {} = '{}';".format(table, field_id, field_val)
 		return self.query(sql)
+
+	def close_connection(self):
+		self.curr.close()
+		self.db.close()
