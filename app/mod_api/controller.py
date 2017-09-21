@@ -29,10 +29,20 @@ def get_all_users():
 
 @api.route('/users', methods=['POST'])
 def create_user():
-	if request.authentication:
-		return jsonify({'message': 'Authentication found!'}), 200
+	print('inside create_user')
+	data = request.get_json()
+	print('here')
+	if 'email' not in data or 'passwd' not in data:
+		return jsonify({'message': 'Something went wrong.'}), 403
+	print('also here')
+	user = User(data['email'])
+	if not user.available:
+		return jsonify({'message': 'Email already registered.'}), 403
+	id = user.add()
+	if id == None:
+		return jsonify({'message': 'Something went wrong.'}), 403
 	else:
-		return jsonify({'message': 'No auth found.'}), 403
+		return jsonify({'message': 'Success', 'user_id': id}), 200
 
 @api.route('/users/<user_id>', methods=['GET'])
 def get_user(user_id):
