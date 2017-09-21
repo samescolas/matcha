@@ -16,11 +16,12 @@ def home():
 	else:
 		return redirect(url_for('auth.login'))
 
-@auth.route('/login/', methods=['GET'])
+@auth.route('/login', methods=['GET'])
 def test_login():
+	print("inside tets_login");
 	return render_template('login.html')
 
-@auth.route('/login/', methods=['POST'])
+@auth.route('/login', methods=['POST'])
 def login():
 	print("inside login controller!")
 	auth = request.authorization
@@ -33,7 +34,7 @@ def login():
 				     401,
 				     {'WWW-Authenticate' : 'Basic realm="Login Required!"'})
 
-	user = User(auth.email, auth.password)
+	user = User(auth.username)
 
 	if not user.auth(auth.password):
 		return make_response('Could not verify user.',
