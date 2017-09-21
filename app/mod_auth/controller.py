@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, url_for, redirect, session, make_response, jsonify
 from functools import wraps
-import jwt
 from .. import User
 
 auth = Blueprint('auth', __name__, template_folder="templates", static_folder="static/auth")
@@ -25,9 +24,6 @@ def test_login():
 def login():
 	print("inside login controller!")
 	auth = request.authorization
-	print(request)
-	if not auth:
-		print("no auth")
 
 	if not auth or not auth.username or not auth.password:
 		return make_response('Could not verify user.',
@@ -35,12 +31,11 @@ def login():
 				     {'WWW-Authenticate' : 'Basic realm="Login Required!"'})
 
 	user = User(auth.username)
-
 	if not user.auth(auth.password):
 		return make_response('Could not verify user.',
 				     401,
 				     {'WWW-Authenticate' : 'Basic realm="Login Required!"'})
-	token = jwt.encode({'public_id' : user.data[0], 'exp' : datetime.datetime.now()}, app.config['SECRET_KEY'])
+	token = 'test_token'
 	return jsonify({'token': token.decode('UTF-8')})
 
 def check_auth(username, password):
