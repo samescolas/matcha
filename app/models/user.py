@@ -14,11 +14,18 @@ class User:
 		if self.db:
 			self.db.close_connection()
 
-	def add(self):
-		self.user_id = self.db.put('users', { 'email': self.email })
+	def add(self, passwd):
+		if isinstance(passwd, str) and passwd.length > 7:
+			self.user_id = self.db.put('users', { 'email': self.email })
+		else:
+			return False
 		if self.user_id == None:
 			return False
-		return True
+		success = self.db.put('shadow', {
+			'user_id' : self.user_id,
+			'passwd' : self.hash_password(passwd)
+		}) == None;
+		return success
 
 	def auth(self, passwd):
 		if self.available:
