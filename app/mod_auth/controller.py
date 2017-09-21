@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, url_for, redirect, session, make_response, jsonify
+from functools import wraps
 import jwt
 from .. import User
 
@@ -41,19 +42,19 @@ def login():
 	token = jwt.encode({'public_id' : user.data[0], 'exp' : datetime.datetime.now()}, app.config['SECRET_KEY'])
 	return jsonify({'token': token.decode('UTF-8')})
 
+def check_auth(username, password):
+	"""This function is called to check if a user/pass is valid."""
+	return ''
 
-@auth.route('/register/', methods=['GET', 'POST'])
-def register():
-	form = RegistrationForm(request.form)
-	if request.method == 'POST':
-		if form.validate():
-			user = User(form.email.data, form.passwd.data)
-			if not user.available:
-				form.errors['Invalid email'] = 'Email address already exists.'
-			if user.add():
-				resp = make_response(redirect(url_for('auth.login')))
-				session['signedup'] = '1';
-				return resp
-			else:
-				return "<h1>Username taken?</h1>"
-	return render_template('register.html', form=form)
+def authenticate():
+		"""Sends user back to the login page."""
+		return ''
+
+def requires_auth(f):
+	@wraps(f)
+	def decorated(*args, **kwargs):
+		auth = request.authorization
+		if not auth or not check_auth(auth.username, auth.password):
+			return authenticate()
+		return f(*args, **kwargs)
+	return decorated

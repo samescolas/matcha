@@ -36,20 +36,7 @@ angular.module('formApp', ['ngAnimate', 'ui.router'])
 		templateUrl: 'static/form-payment.html'
 	});
 
-	// sends users to registration form or login form
-	clist = document.cookie;
-	for (var i=0; i<clist.length; i++) {
-		var c = clist[i];
-		while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-		}
-		if (c.indexOf('signedup=') !== 0) {
-			$urlRouterProvider.otherwise('/login');
-		} else {
-			$urlRouterProvider.otherwise('/form/profile');
-		}
-	}
-
+	$urlRouterProvider.otherwise('/form/profile');
 })
 
 // our controller for the form
