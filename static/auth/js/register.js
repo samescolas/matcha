@@ -32,15 +32,16 @@ angular.module('regApp', [])
 
 	$scope.registerUser = function() {
 		if ($scope.validEmail() && $scope.validPasswd()) {
-			$http({
-				method: 'POST',
-				url: '/users',
-				data: "{'email': " + $scope.formData.email + "}"
-			}).then(function(response) {
+			$http.post('/users', JSON.stringify({
+				'email': $scope.formData.email,
+				'passwd': $scope.formData.passwd
+			}))
+			.then(function(response) {
 				alert("registered!");
 				$scope.formData['response'] = response;
 			}, function(response) {
 				alert("no bueno.");
+				$scope.formData['response'] = response;
 			});
 		} else {
 			alert("invalid form!");
