@@ -1,8 +1,7 @@
 #!/usr/bin/python
 from flask import Flask, request, url_for, session, redirect, make_response
 #from flask_wtf.csrf import CSRFProtect
-from app import User
-from app import auth
+from app import User, auth, api
 
 app = Flask(__name__)
 
@@ -12,6 +11,9 @@ app.secret_key = 's3cret'
 
 # Auth contains all routing from / until logged in.
 app.register_blueprint(auth)
+
+# Register api
+app.register_blueprint(api)
 
 #@app.route('/favicon.ico')
 #def favicon():

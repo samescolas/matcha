@@ -11,7 +11,8 @@ class User:
 		self.user_id = 0
 
 	def __del__(self):
-		self.db.close_connection()
+		if self.db:
+			self.db.close_connection()
 
 	def add(self):
 		self.user_id = self.db.put('users', { 'email': self.email })

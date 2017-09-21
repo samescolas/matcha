@@ -43,7 +43,7 @@ angular.module('formApp', ['ngAnimate', 'ui.router'])
 		while (c.charAt(0) == ' ') {
 			c = c.substring(1);
 		}
-		if (c.indexOf('signedup=') == 0) {
+		if (c.indexOf('signedup=') !== 0) {
 			$urlRouterProvider.otherwise('/login');
 		} else {
 			$urlRouterProvider.otherwise('/form/profile');

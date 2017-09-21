@@ -1,40 +1,19 @@
 from flask import Blueprint, render_template, request, url_for, redirect, session, make_response, jsonify
-from forms import LoginForm, RegistrationForm
-from .. import User
 import jwt
+from .. import User
 
-auth = Blueprint('auth', __name__, template_folder="templates", static_folder="{}/static".format(__file__))
+auth = Blueprint('auth', __name__, template_folder="templates", static_folder="static/auth")
 
 @auth.route('/')
 def home():
-	if session.get('logged_in'):
-		return render_template('index.html');
+	if 'loggedin' in session:
+		return render_template('home.html');
 	#	return redirect(url_for('home'))
-	elif request.cookies.get('signedup') == None:
-		return redirect(url_for('auth.register'))
+	elif 'signedup' not in session:
+		return render_template('register.html')
+		#return redirect(url_for('auth.register'))
 	else:
 		return redirect(url_for('auth.login'))
-
-@auth.route('/users/', methods=['GET'])
-def get_all_users():
-	user = User('', '')
-	if not user.db.get('users', '1', '1'):
-		return jsonify({'message': 'No users found.'}), 404
-	users = user.db.results[:]
-	obj = {}
-	for record in users:
-		obj[record[0]] = {
-			'user_id': record[0],
-			'f_name': record[1],
-			'l_name': record[2],
-			'age': record[4],
-			'gender': record[5],
-			'location_id': record[7],
-			'sexual_preference': record[10],
-			'active': record[11]
-		}
-	del user
-	return jsonify({'data': obj})
 
 @auth.route('/login/', methods=['GET'])
 def test_login():
@@ -73,7 +52,7 @@ def register():
 				form.errors['Invalid email'] = 'Email address already exists.'
 			if user.add():
 				resp = make_response(redirect(url_for('auth.login')))
-				resp.set_cookie('signedup', '1')
+				session['signedup'] = '1';
 				return resp
 			else:
 				return "<h1>Username taken?</h1>"

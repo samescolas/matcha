@@ -6,18 +6,16 @@
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/darkly/bootstrap.min.css">
-		<link rel="stylesheet" href="static/style.css">
+		<link rel="stylesheet" href="{{url_for('static', filename='auth/css/register.css')}}">
 
-		<!-- JS -->
-		<!-- load angular, nganimate, and ui-router -->
+		<!-- load angular -->
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-animate.min.js"></script>
-		<script src="static/app.js"></script>
+		<script src="{{url_for('static', filename='auth/js/register.js')}}"></script>
 	</head>
-	<body>
+	<body ng-app="regApp" ng-controller="regCtrl">
 		<h1>Register</h1>
-		<form method="POST" ng-app="registerApp">
+		<h2>{{url_for('static', filename='auth/register.css')}}</h2>
+		<form method=POST>
 			<div class="form-group">
 				<label for="email">Email</label>
 				<input type="text" autofocus="autofocus" class="form-control" name="email" ng-model="formData.email">
@@ -35,15 +33,12 @@
 				<input type="password" class="form-control" name="passwd2" ng-model="formData.passwd2">
 				<p ng-show="formData.passwd.length + formData.passwd2.length > 0 && !pwMatch()" class="help-block">Passwords must match.</p>
 			</div>
+		</form>
+		<button ng-click="registerUser()">Submit</button>
 			{% raw %}
 			{{ formData }}
 			{% endraw %}
 		</form>
 
-	<script>
-	var app = angular.module('registerApp', []);
-	app.controller('registerCtrl', function($scope) {
-	});
-	</script>
 	</body>
 </html>
