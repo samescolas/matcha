@@ -32,7 +32,7 @@ def create_user():
 	data = request.get_json()
 	if data == None:
 		return jsonify({'message': 'No data provided.'}), 403
-	if 'email' not in data or 'passwd' not in data:
+	if 'email' not in data or len(data['email']) < 8 or 'passwd' not in data or len(data['passwd']) < 7:
 		return jsonify({'message': 'Something went wrong.'}), 403
 	user = User(data['email'])
 	if not user.available:
