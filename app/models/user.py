@@ -41,7 +41,6 @@ class User:
 		if not self.get_user_id():
 			return False
 		if self.db.get('shadow', 'user_id', self.user_id):
-			print(self.db.results[0][2])
 			real_pass = self.db.results[0][2]
 		return check_password_hash(real_pass, passwd)
 
