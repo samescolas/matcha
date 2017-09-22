@@ -7,7 +7,7 @@ class User:
 		self.db = Database('localhost', 'matcha', 'matcha', 'matcha')
 		self.email = email
 		self.available = not self.db.get('users', 'email', email)
-		self.data = self.db.results
+		self.data = self.db.results[:]
 		self.user_id = 0
 
 	def __del__(self):
@@ -24,11 +24,25 @@ class User:
 		}) != None;
 		return success
 
+	def get_user_id(self):
+		if self.user_id > 0:
+			return True
+		if len(self.email) < 1:
+			return False
+		if self.db.get('users', 'email', self.email):
+			self.user_id = self.db.results[0][0]
+			return True
+		else:
+			return False
+
 	def auth(self, passwd):
 		if self.available:
 			return False
-		real_pass = self.db.get('shadow', 'user_id', self.data[0])
-		return True
+		if not self.get_user_id():
+			return False
+		if self.db.get('shadow', 'user_id', self.user_id):
+			print(self.db.results[0][2])
+			real_pass = self.db.results[0][2]
 		return check_password_hash(real_pass, passwd)
 
 	@staticmethod
