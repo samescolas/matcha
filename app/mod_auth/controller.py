@@ -26,19 +26,16 @@ def login():
 	token = 'test_token'
 	return jsonify({'token': token.decode('UTF-8')})
 
-def check_auth(username, password):
-	"""This function is called to check if a user/pass is valid."""
-	return ''
+def check_token(token):
+	return token == 'test_token'
 
 def authenticate():
-		"""Sends user back to the login page."""
-		return ''
+	return redirect(url_for('auth.login'))
 
 def requires_auth(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
-		auth = request.authorization
-		if not auth or not check_auth(auth.username, auth.password):
+		if 'token' not in session or not check_token(session['token']):
 			return authenticate()
 		return f(*args, **kwargs)
 	return decorated
