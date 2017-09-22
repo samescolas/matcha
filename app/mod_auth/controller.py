@@ -4,17 +4,6 @@ from .. import User
 
 auth = Blueprint('auth', __name__, template_folder="templates", static_folder="static/auth")
 
-@auth.route('/')
-def home():
-	if 'loggedin' in session:
-		return render_template('home.html');
-	#	return redirect(url_for('home'))
-	elif 'signedup' not in session:
-		return render_template('register.html')
-		#return redirect(url_for('auth.register'))
-	else:
-		return redirect(url_for('auth.login'))
-
 @auth.route('/login', methods=['GET'])
 def test_login():
 	print("inside tets_login");
@@ -22,7 +11,6 @@ def test_login():
 
 @auth.route('/login', methods=['POST'])
 def login():
-	print("inside login controller!")
 	auth = request.authorization
 
 	if not auth or not auth.username or not auth.password:
