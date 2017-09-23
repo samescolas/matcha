@@ -1,12 +1,12 @@
 // app.js
 // create our angular app
 // =============================================================================
-var app = angular.module('formApp', ["ngRoute", "ngCookies"]);
+var app = angular.module('mainApplication', ["ngRoute", "ngCookies"]);
 
 app.config(function($routeProvider) {
 	$routeProvider
 	.when("/", {
-		templateUrl : "static/form-profile.html"
+		templateUrl : "static/form-register.html"
 	})
 	.when("/register", {
 		templateUrl: "static/form-interests.html"
@@ -45,10 +45,10 @@ app.controller('formController', function($scope) {
 
 });
 
-app.run(function($rootScope, $cookies) {
+app.run(function($rootScope, $cookies, $location) {
 	$rootScope.$on('$routeChangeStart', function() {
 		let cook = $cookies.get('loggedIn');
-		if (!cook) {
+		if (cook) {
 			$location.path('/login');
 		}
 	});

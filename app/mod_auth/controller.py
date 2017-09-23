@@ -22,6 +22,7 @@ def login():
 	return jsonify({'token': token.decode('UTF-8')})
 
 def check_token(token):
+        print("Checking token...")
 	return token == 'test_token'
 
 def authenticate():
