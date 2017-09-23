@@ -1,31 +1,16 @@
-<!-- form.html -->
-<div class="row">
-<div class="col-sm-8 col-sm-offset-2">
-
-    <div id="form-container">
-
-        <div class="page-header text-center">
-            <h2>Matcha</h2>
-
-            <!-- the links to our nested states using relative paths -->
-            <!-- add the active class if the state matches our ui-sref -->
-            <div id="status-buttons" class="text-center">
-            </div>
-        </div>
-
-        <!-- use ng-submit to catch the form submission and use our Angular function -->
-        <form id="signup-form" ng-submit="processForm()" novalidate>
-
-            <!-- our nested state views will be injected here -->
-            <div id="form-views" ui-view></div>
-        </form>
-
-    </div>
-
-    <!-- show our formData as it is being typed -->
-    <pre>
-        {% raw %}{{ formData }}{% endraw %}
-    </pre>
-
-</div>
-</div>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Login</title>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	</head>
+	<body>
+		<h1>Login</h1>
+		<p>This is the login page for Matcha!</p>
+		<form method=POST>
+			<input type="email" name="email" id="email" autofocus="autofocus" placeholder="example@test.com" /> <br />
+			<input type="password" name="passwd" id="passwd" placeholder="Password" />
+			<p><input type="submit" value="Register" /></p>
+		</form>
+	</body>
+</html>
