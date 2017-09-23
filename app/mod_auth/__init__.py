@@ -1,2 +1,2 @@
 from .. import User
-from controller import auth
+from controller import auth, requires_auth
