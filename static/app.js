@@ -12,12 +12,15 @@ app.config(function($routeProvider) {
 		templateUrl: "static/form-interests.html"
 	})
 	.when("/login", {
-		templateUrl: "static/form-payment.html"
+		templateUrl: "static/form-login.html",
+		controller: function($scope) {
+				$scope.username = "user";
+		}
 	});
 });
 
 // =============================================================================
-app.controller('formController', function($scope) {
+app.controller('formController', ['$scope', function($scope) {
 
 	// we will store all of our form data in this object
 	$scope.formData = {};
@@ -43,12 +46,17 @@ app.controller('formController', function($scope) {
 		return $scope.formData.passwd === $scope.formData.passwd2;
 	};
 
-});
+}]);
+
+
+app.controller('loginController', ['$scope', function($scope) {
+		$scope.username = "example@hostname.com"; 
+}]);
 
 app.run(function($rootScope, $cookies, $location) {
 	$rootScope.$on('$routeChangeStart', function() {
 		let cook = $cookies.get('loggedIn');
-		if (cook) {
+		if (!cook) {
 			$location.path('/login');
 		}
 	});
