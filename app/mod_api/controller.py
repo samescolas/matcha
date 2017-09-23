@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
 from .. import User
+from .. import requires_auth
 
 api = Blueprint('api', __name__, template_folder="static/templates", static_folder="static")
 
@@ -17,7 +18,9 @@ def jsonify_user_record(record):
 
 @api.route('/users', methods=['GET'])
 def get_all_users():
-	user = User('')
+	if 'token' not in session:
+		print('still no token')
+		user = User('')
 	if not user.db.get('users', '1', '1'):
 		return jsonify({'message': 'No users found.'}), 403
 	users = user.db.results[:]
