@@ -4,11 +4,6 @@ from .. import User
 
 auth = Blueprint('auth', __name__, template_folder="templates", static_folder="static/auth")
 
-@auth.route('/login', methods=['GET'])
-def test_login():
-	print("inside tets_login");
-	return render_template('login.html')
-
 @auth.route('/login', methods=['POST'])
 def login():
 	auth = request.authorization
