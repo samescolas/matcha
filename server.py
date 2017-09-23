@@ -22,6 +22,10 @@ app.register_blueprint(api)
 #def favicon():
 #	return send_from_directory()
 
+@app.route('/<garbagio>')
+def trashcan(garbagio):
+    return redirect(url_for('home'))
+
 @app.route('/')
 def home():
 	return render_template('index.html')

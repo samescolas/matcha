@@ -53,6 +53,10 @@ app.controller('loginController', ['$scope', function($scope) {
 		$scope.username = "example@hostname.com"; 
 }]);
 
+app.controller('headerController', ['$scope', function($scope) {
+		$scope.links = ['home', 'login', 'register'];
+}]);
+
 app.run(function($rootScope, $cookies, $location) {
 	$rootScope.$on('$routeChangeStart', function() {
 		let cook = $cookies.get('loggedIn');
