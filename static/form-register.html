@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Register</title>
-		<meta charset="utf-8">
-
-		<!-- CSS -->
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/darkly/bootstrap.min.css">
-		<link rel="stylesheet" href="{{url_for('static', filename='auth/css/register.css')}}">
-
-		<!-- load angular -->
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-		<script src="{{url_for('static', filename='auth/js/register.js')}}"></script>
-	</head>
-	<body ng-app="regApp" ng-controller="regCtrl">
 		<h1>Register</h1>
-		<h2>{{url_for('static', filename='auth/register.css')}}</h2>
 		<form method=POST>
 			<div class="form-group">
 				<label for="email">Email</label>
@@ -39,6 +23,3 @@
 			{{ formData }}
 			{% endraw %}
 		</form>
-
-	</body>
-</html>
