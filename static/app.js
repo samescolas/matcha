@@ -54,13 +54,17 @@ app.controller('loginController', ['$scope', function($scope) {
 }]);
 
 app.controller('headerController', ['$scope', function($scope) {
-		$scope.links = ['home', 'login', 'register'];
+		$scope.links = [
+				{'name' : 'home', 'nav' : '/'},
+				{'name' : 'login', 'nav' : '/#!/login'},
+				{'name' : 'register', 'nav' : '/#!/register'}
+		];
 }]);
 
 app.run(function($rootScope, $cookies, $location) {
 	$rootScope.$on('$routeChangeStart', function() {
 		let cook = $cookies.get('loggedIn');
-		if (!cook) {
+		if (cook) {
 			$location.path('/login');
 		}
 	});

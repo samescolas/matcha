@@ -26,7 +26,7 @@
 					<ul>
 							<li ng-repeat="link in links">
 								{% raw %}
-								<a href="{{link}}">{{link}} |</a>
+								<a href={{link.nav}}>{{link.name}}</a>
 								{% endraw %}
 							</li>
 					</ul>
