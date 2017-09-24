@@ -65,15 +65,11 @@ app.controller('formController', ['$scope', function($scope) {
 }]);
 
 
-app.controller('loginController', ['$scope', function($scope) {
-		$scope.username = "example@hostname.com"; 
-}]);
-
 app.run(function($rootScope, $cookies, $location) {
 	$rootScope.$on('$routeChangeStart', function() {
 		let cook = $cookies.get('loggedIn');
 		if (cook) {
-			$location.path('/login');
+			$location.path('/#!/login');
 		}
 	});
 });
