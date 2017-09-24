@@ -20,18 +20,7 @@
 	<!-- Angular app -->
 	<body ng-app="mainApplication">
 		<h1>Can I see this?</h1>
-		<div class="header">
-			<section ng-controller="headerController">
-					<h3>Nav</h3>
-					<ul>
-							<li ng-repeat="link in links">
-								{% raw %}
-								<a href={{link.nav}}>{{link.name}}</a>
-								{% endraw %}
-							</li>
-					</ul>
-			</section>
-		</div>
+		<matcha-header></matcha-header>
 
 		<div class="container">
 

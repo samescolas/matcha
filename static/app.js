@@ -19,6 +19,22 @@ app.config(function($routeProvider) {
 	});
 });
 
+app.directive('matchaHeader', function() {
+
+	var ctrl = ['$scope', function($scope) {
+		$scope.links = [
+			{'name' : 'home', 'nav' : '/'},
+			{'name' : 'login', 'nav' : '/#!/login'},
+			{'name' : 'register', 'nav' : '/#!/register'}
+		];
+	}];
+	return {
+		restrict: "E",
+		templateUrl : "static/header.html",
+		controller: ctrl
+	};
+});
+
 // =============================================================================
 app.controller('formController', ['$scope', function($scope) {
 
@@ -51,14 +67,6 @@ app.controller('formController', ['$scope', function($scope) {
 
 app.controller('loginController', ['$scope', function($scope) {
 		$scope.username = "example@hostname.com"; 
-}]);
-
-app.controller('headerController', ['$scope', function($scope) {
-		$scope.links = [
-				{'name' : 'home', 'nav' : '/'},
-				{'name' : 'login', 'nav' : '/#!/login'},
-				{'name' : 'register', 'nav' : '/#!/register'}
-		];
 }]);
 
 app.run(function($rootScope, $cookies, $location) {
