@@ -1,0 +1,19 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "The love of your life is waiting for you to matcha.",
+  "main": "python server.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samescolas/matcha.git"
+  },
+  "author": "sesc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samescolas/matcha/issues"
+  },
+  "homepage": "https://github.com/samescolas/matcha#readme"
+}
