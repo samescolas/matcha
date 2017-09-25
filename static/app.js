@@ -35,9 +35,16 @@ angular.module('main', ['ui.router'])
 	.state('form.payment', {
 		url: '/login',
 		templateUrl: 'static/auth/login.html',
-		controller: ['$scope', function($scope) {
-			$scope.showRegisterForm = false;
-		}]
+		controller: function($scope) {
+			$scope.showRegisterForm = true;
+			$scope.user = {
+				'email': 'example@test.com',
+				'password': ''
+			};
+			$scope.switchForm = function() {
+				$scope.showRegisterForm = !$scope.showRegisterForm;
+			};
+		}
 	});
 
 	$urlRouterProvider.otherwise('/form/profile');
