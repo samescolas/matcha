@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/samescolas/matcha/issues"
   },
-  "homepage": "https://github.com/samescolas/matcha#readme"
+  "homepage": "https://github.com/samescolas/matcha#readme",
+  "dependencies": {
+    "ui-router": "^1.0.0-alpha.3"
+  }
 }
