@@ -26,8 +26,7 @@ angular.module('main', ['ui.router'])
 		controller: function($scope, $http) {
 			$scope.showRegisterForm = true;
 			$scope.user = {
-				'email': 'example@test.com',
-				'password': ''
+				'email': 'example@test.com'
 			};
 			$scope.errorMessage = "";
 			$scope.auth = {};
@@ -46,19 +45,17 @@ angular.module('main', ['ui.router'])
 				return $scope.formData.passwd === $scope.formData.passwd2;
 			};
 			$scope.auth.register = function(user) {
-				try {
-					$http.post('/users', {
-						email: user.email,
-						passwd: user.password
-					}).then(function success(response) {
-						console.log("Success");
-					}, function failure(response) {
-						console.log("Failure: " + response.data.message);
-						$scope.errorMessage = response.data.message;
-					});
-				} catch(err) {
-					console.log(err);
-				}
+				$http.post('/users', {
+					email: user.email,
+					passwd: user.password
+				}).then(function success(response) {
+					$scope.$parent.formData.user = user.email;
+					$scope.$parent.formData.passwd = user.password;
+					console.log("Success");
+				}, function failure(response) {
+					console.log("Failure: " + response.data.message);
+					$scope.errorMessage = response.data.message;
+				});
 			};
 		}
 	})
