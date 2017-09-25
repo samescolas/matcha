@@ -1,23 +1,8 @@
 // app.js
 // create our angular app and inject ngAnimate and ui-router 
 // =============================================================================
-angular.module('mainApplication', ['ngAnimate', 'ui.router'])
+angular.module('main', ['ui.router'])
 
-.directive('matchaHeader', function() {
-
-	var ctrl = ['$scope', function($scope) {
-		$scope.links = [
-			{'name' : 'home', 'nav' : '/'},
-			{'name' : 'login', 'nav' : '/#!/login'},
-			{'name' : 'register', 'nav' : '/#!/register'}
-		];
-	}];
-	return {
-		restrict: "E",
-		templateUrl : "static/header.html",
-		controller: ctrl
-	};
-})
 
 // configuring our routes 
 // =============================================================================
