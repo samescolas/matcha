@@ -1,8 +1,7 @@
 <div class="container">
-	<div class="panel panel-default" ng-show="errorMessage != ''">
-		<div class="panel-body">
-			<p>{{errorMessage}}</p>
-		</div>
+	<div class="alert alert-danger" ng-show="errorMessage != ''">
+		<a href="" class="close" data-hide="alert" ng-show="errorMessage != ''" ng-click="errorMessage=''" aria-label="close">&times;</a>
+		<strong>{{errorMessage}}</strong>
 	</div>
 	<div class="panel panel-default" ng-if="showRegisterForm">
 		<form name="auth.registerForm">

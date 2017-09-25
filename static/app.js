@@ -76,7 +76,7 @@ angular.module('main', ['ui.router'])
 	});
 
 
-	$urlRouterProvider.otherwise('/form/profile');
+	$urlRouterProvider.otherwise('/form/login');
 })
 
 // our controller for the form
