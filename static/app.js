@@ -33,8 +33,11 @@ angular.module('main', ['ui.router'])
 
 	// url will be /form/payment
 	.state('form.payment', {
-		url: '/payment',
-		templateUrl: 'static/form-payment.html'
+		url: '/login',
+		templateUrl: 'static/auth/login.html',
+		controller: ['$scope', function($scope) {
+			$scope.showRegisterForm = false;
+		}]
 	});
 
 	$urlRouterProvider.otherwise('/form/profile');
@@ -46,8 +49,9 @@ angular.module('main', ['ui.router'])
 
 	// we will store all of our form data in this object
 	$scope.formData = {
-	'passwd': ''
+	'passwd': 'shit',
 	};
+	$scope.showRegisterForm = false;
 
 	// function to process the form
 	$scope.processForm = function(isValid) {
