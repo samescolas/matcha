@@ -28,21 +28,21 @@ def get_all_users():
 	for record in users:
 		obj[record[0]] = jsonify_user_record(record)
 	del user
-	return jsonify({'data': obj})
+	return jsonify({'data': obj}), 200
 
 @api.route('/users', methods=['POST'])
 def create_user():
 	data = request.get_json()
 	if data == None:
-		return jsonify({'message': 'No data provided.'}), 403
+		return jsonify({'message': 'No data provided.'}), 400
 	if 'email' not in data or len(data['email']) < 8 or 'passwd' not in data or len(data['passwd']) < 7:
-		return jsonify({'message': 'Something went wrong.'}), 403
+		return jsonify({'message': 'Something went wrong.'}), 400
 	user = User(data['email'])
 	if not user.available:
-		return jsonify({'message': 'Email already registered.'}), 403
+		return jsonify({'message': 'Email already registered.'}), 400
 	id = user.add(data['passwd'])
 	if id == False:
-		return jsonify({'message': 'Something went wrong.'}), 403
+		return jsonify({'message': 'Something went wrong.'}), 400
 	else:
 		return jsonify({'message': 'Success', 'user_id': user.user_id}), 200
 
