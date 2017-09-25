@@ -1,4 +1,9 @@
 <div class="container">
+	<div class="panel panel-default" ng-show="errorMessage != ''">
+		<div class="panel-body">
+			<p>{{errorMessage}}</p>
+		</div>
+	</div>
 	<div class="panel panel-default" ng-if="showRegisterForm">
 		<form name="auth.registerForm">
 			<div class="panel-body">
@@ -27,7 +32,7 @@
 					<input type="password" class="form-control" placeholder="Password" required ng-model="auth.credentials.password">
 				</div>
 				<div class="panel-footer">
-					<button class="btn btn-lg btn-success btn-block" ng-class="{'disabled': auth.registerForm.$invalid}" ng-click="auth.register(user)">Register</button>
+					<button class="btn btn-lg btn-success btn-block" ng-class="{'disabled': validPasswd()}" ng-click="auth.register(user)">Register</button>
 				</div>
 			</form>
 		</div>
@@ -42,5 +47,4 @@
 			Dont have an account? <a href="" ng-click="switchForm()">Sign up</a>
 		</div>
 	</div>
-	{{showRegisterForm}}
 </div>
