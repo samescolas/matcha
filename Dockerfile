@@ -34,6 +34,8 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh && \
 	rm nodesource_setup.sh && \
 	apt-get install -y nodejs && \
 	npm install -g npm && \
-	npm install -g bower
+	npm install -g bower && \
+	bower install bower.json && \
+	mv bower_components static/bower_components
 
 ENTRYPOINT bash
