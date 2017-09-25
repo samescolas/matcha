@@ -19,6 +19,50 @@ angular.module('main', ['ui.router'])
 
 	// nested states 
 	// each of these sections will have their own view
+	// url will be /form/payment
+	.state('form.login', {
+		url: '/login',
+		templateUrl: 'static/auth/login.html',
+		controller: function($scope, $http) {
+			$scope.showRegisterForm = true;
+			$scope.user = {
+				'email': 'example@test.com',
+				'password': ''
+			};
+			$scope.errorMessage = "";
+			$scope.auth = {};
+			$scope.switchForm = function() {
+				$scope.showRegisterForm = !$scope.showRegisterForm;
+			};
+			$scope.validPasswd = function() {
+				return $scope.formData.passwd.length > 7 && $scope.pwMatch();
+			}
+
+			$scope.validEmail = function() {
+				return /[A-z!-+]+@[A-z!-+]+\.\w+/.test($scope.formData.email);
+			}
+
+			$scope.pwMatch = function() {
+				return $scope.formData.passwd === $scope.formData.passwd2;
+			};
+			$scope.auth.register = function(user) {
+				try {
+					$http.post('/users', {
+						email: user.email,
+						passwd: user.password
+					}).then(function success(response) {
+						console.log("Success");
+					}, function failure(response) {
+						console.log("Failure: " + response.data.message);
+						$scope.errorMessage = response.data.message;
+					});
+				} catch(err) {
+					console.log(err);
+				}
+			};
+		}
+	})
+
 	// url will be nested (/form/profile)
 	.state('form.profile', {
 		url: '/profile',
@@ -29,23 +73,8 @@ angular.module('main', ['ui.router'])
 	.state('form.interests', {
 		url: '/interests',
 		templateUrl: 'static/form-interests.html'
-	})
-
-	// url will be /form/payment
-	.state('form.payment', {
-		url: '/login',
-		templateUrl: 'static/auth/login.html',
-		controller: function($scope) {
-			$scope.showRegisterForm = true;
-			$scope.user = {
-				'email': 'example@test.com',
-				'password': ''
-			};
-			$scope.switchForm = function() {
-				$scope.showRegisterForm = !$scope.showRegisterForm;
-			};
-		}
 	});
+
 
 	$urlRouterProvider.otherwise('/form/profile');
 })
@@ -58,27 +87,8 @@ angular.module('main', ['ui.router'])
 	$scope.formData = {
 	'passwd': 'shit',
 	};
-	$scope.showRegisterForm = false;
-
+	
 	// function to process the form
-	$scope.processForm = function(isValid) {
-		if (isValid) {
-			alert('awesome!');
-		} else {
-			alert('fix it!');
-		}
-	};
 
-	$scope.validPasswd = function() {
-		return $scope.formData.passwd.length > 7 && $scope.pwMatch();
-	}
-
-	$scope.validEmail = function() {
-		return /[A-z!-+]+@[A-z!-+]+\.\w+/.test($scope.formData.email);
-	}
-
-	$scope.pwMatch = function() {
-		return $scope.formData.passwd === $scope.formData.passwd2;
-	};
 
 });
