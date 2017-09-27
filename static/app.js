@@ -1,7 +1,7 @@
 // app.js
 // create our angular app and inject ngAnimate and ui-router 
 // =============================================================================
-angular.module('main', ['ui.router'])
+angular.module('main', ['ui.router', 'main.controllers'])
 
 
 // configuring our routes 
@@ -19,41 +19,7 @@ angular.module('main', ['ui.router'])
 			},
 			'body' : {
 				templateUrl: 'static/auth/login.html',
-				controller: function($scope, $http) {
-					$scope.showRegisterForm = true;
-					$scope.user = {
-						'email': 'example@test.com'
-					};
-					$scope.errorMessage = "";
-					$scope.auth = {};
-					$scope.switchForm = function() {
-						$scope.showRegisterForm = !$scope.showRegisterForm;
-					};
-					$scope.validPasswd = function() {
-						return $scope.formData.passwd.length > 7 && $scope.pwMatch();
-					}
-
-					$scope.validEmail = function() {
-						return /[A-z!-+]+@[A-z!-+]+\.\w+/.test($scope.formData.email);
-					}
-
-					$scope.pwMatch = function() {
-						return $scope.formData.passwd === $scope.formData.passwd2;
-					};
-					$scope.auth.register = function(user) {
-						$http.post('/users', {
-							email: user.email,
-							passwd: user.password
-						}).then(function success(response) {
-							$scope.$parent.formData.user = user.email;
-							$scope.$parent.formData.passwd = user.password;
-							console.log("Success");
-						}, function failure(response) {
-							console.log("Failure: " + response.data.message);
-							$scope.errorMessage = response.data.message;
-						});
-					};
-				}
+				controller: 'regController'
 			}
 		}
 	})
@@ -121,21 +87,4 @@ angular.module('main', ['ui.router'])
 	});
 
 	$urlRouterProvider.otherwise('/login');
-})
-
-// our controller for the form
-// =============================================================================
-.controller('navbarController', function($scope) {
-	$scope.links = {};
-})
-
-.controller('formController', function($scope) {
-
-	// we will store all of our form data in this object
-	$scope.formData = {
-	};
-	
-	// function to process the form
-
-
 });
