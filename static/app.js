@@ -10,15 +10,77 @@ angular.module('main', ['ui.router'])
 
 	$stateProvider
 
-        // route to show our basic form (/form)
+	.state('login', {
+		url: '/login',
+		views: {
+			'navbar' : {
+				templateUrl: 'static/header.html',
+				controller: 'navbarController'
+			},
+			'body' : {
+				templateUrl: 'static/auth/login.html',
+				controller: function($scope, $http) {
+					$scope.showRegisterForm = true;
+					$scope.user = {
+						'email': 'example@test.com'
+					};
+					$scope.errorMessage = "";
+					$scope.auth = {};
+					$scope.switchForm = function() {
+						$scope.showRegisterForm = !$scope.showRegisterForm;
+					};
+					$scope.validPasswd = function() {
+						return $scope.formData.passwd.length > 7 && $scope.pwMatch();
+					}
+
+					$scope.validEmail = function() {
+						return /[A-z!-+]+@[A-z!-+]+\.\w+/.test($scope.formData.email);
+					}
+
+					$scope.pwMatch = function() {
+						return $scope.formData.passwd === $scope.formData.passwd2;
+					};
+					$scope.auth.register = function(user) {
+						$http.post('/users', {
+							email: user.email,
+							passwd: user.password
+						}).then(function success(response) {
+							$scope.$parent.formData.user = user.email;
+							$scope.$parent.formData.passwd = user.password;
+							console.log("Success");
+						}, function failure(response) {
+							console.log("Failure: " + response.data.message);
+							$scope.errorMessage = response.data.message;
+						});
+					};
+				}
+			}
+		}
+	})
+
+	.state('users', {
+		url: '/users',
+		views : {
+			'navbar': {
+				templateUrl: 'static/header.html',
+				controller: 'navbarController'
+			},
+			'body': {
+				templateUrl: 'static/users.html',
+				controller: 'usersController'
+			}
+		}
+	})
+
 	.state('home', {
+		abstract: true,
 		url: '/home',
 		views: {
 			'navbar' : {
 				templateUrl: 'static/header.html',
 				controller: 'navbarController'
 			},
-			'form' : {
+			'body' : {
 				templateUrl: 'static/form.html',
 				controller: 'formController'
 			}
@@ -28,56 +90,22 @@ angular.module('main', ['ui.router'])
 	// nested states 
 	// each of these sections will have their own view
 	// url will be /form/payment
-	.state('home.login', {
-		url: '/login',
-		templateUrl: 'static/auth/login.html',
-		controller: function($scope, $http) {
-			$scope.showRegisterForm = true;
-			$scope.user = {
-				'email': 'example@test.com'
-			};
-			$scope.errorMessage = "";
-			$scope.auth = {};
-			$scope.switchForm = function() {
-				$scope.showRegisterForm = !$scope.showRegisterForm;
-			};
-			$scope.validPasswd = function() {
-				return $scope.formData.passwd.length > 7 && $scope.pwMatch();
-			}
-
-			$scope.validEmail = function() {
-				return /[A-z!-+]+@[A-z!-+]+\.\w+/.test($scope.formData.email);
-			}
-
-			$scope.pwMatch = function() {
-				return $scope.formData.passwd === $scope.formData.passwd2;
-			};
-			$scope.auth.register = function(user) {
-				$http.post('/users', {
-					email: user.email,
-					passwd: user.password
-				}).then(function success(response) {
-					$scope.$parent.formData.user = user.email;
-					$scope.$parent.formData.passwd = user.password;
-					console.log("Success");
-				}, function failure(response) {
-					console.log("Failure: " + response.data.message);
-					$scope.errorMessage = response.data.message;
-				});
-			};
-		}
-	})
-
-	// url will be nested (/form/profile)
 	.state('home.profile', {
 		url: '/profile',
-		templateUrl: 'static/form-profile.html'
+		templateUrl: 'static/form-profile.html',
+		controller: 'formController'
 	})
 
 	// url will be /form/interests
 	.state('home.interests', {
 		url: '/interests',
 		templateUrl: 'static/form-interests.html'
+	})
+
+	// url will be nested (/form/profile)
+	.state('home.payment', {
+		url: '/payment',
+		templateUrl: 'static/form-payment.html'
 	})
 
 	.state('something', {
@@ -92,7 +120,7 @@ angular.module('main', ['ui.router'])
 		}
 	});
 
-	$urlRouterProvider.otherwise('/home/login');
+	$urlRouterProvider.otherwise('/login');
 })
 
 // our controller for the form
