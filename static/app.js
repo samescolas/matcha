@@ -11,8 +11,8 @@ angular.module('main', ['ui.router'])
 	$stateProvider
 
         // route to show our basic form (/form)
-	.state('form', {
-		url: '/form',
+	.state('home', {
+		url: '/home',
 		views: {
 			'navbar' : {
 				templateUrl: 'static/header.html',
@@ -24,11 +24,11 @@ angular.module('main', ['ui.router'])
 			}
 		}
 	})
-
+	
 	// nested states 
 	// each of these sections will have their own view
 	// url will be /form/payment
-	.state('form.login', {
+	.state('home.login', {
 		url: '/login',
 		templateUrl: 'static/auth/login.html',
 		controller: function($scope, $http) {
@@ -69,18 +69,30 @@ angular.module('main', ['ui.router'])
 	})
 
 	// url will be nested (/form/profile)
-	.state('form.profile', {
+	.state('home.profile', {
 		url: '/profile',
 		templateUrl: 'static/form-profile.html'
 	})
 
 	// url will be /form/interests
-	.state('form.interests', {
+	.state('home.interests', {
 		url: '/interests',
 		templateUrl: 'static/form-interests.html'
+	})
+
+	.state('something', {
+		url: '/something',
+		views: {
+			'navbar' : {
+				templateUrl: "static/header.html"
+			},
+			'form' : {
+				templateUrl: "static/header-search.html"
+			}
+		}
 	});
 
-	$urlRouterProvider.otherwise('/form/login');
+	$urlRouterProvider.otherwise('/home/login');
 })
 
 // our controller for the form
@@ -93,7 +105,6 @@ angular.module('main', ['ui.router'])
 
 	// we will store all of our form data in this object
 	$scope.formData = {
-	'passwd': 'shit',
 	};
 	
 	// function to process the form
