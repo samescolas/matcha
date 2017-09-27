@@ -11,18 +11,10 @@ angular.module('main', ['ui.router'])
 	$stateProvider
 
         // route to show our basic form (/form)
-	.state('form', {
+	.state('home', {
 		url: '/form',
-		views: {
-			'navbar' : {
-				templateUrl: 'static/header.html',
-				controller: 'navbarController'
-			},
-			'form' : {
-				templateUrl: 'static/form.html',
-				controller: 'formController'
-			}
-		}
+		templateUrl: 'static/form.html',
+		controller: 'formController'
 	})
 
 	// nested states 
@@ -80,15 +72,12 @@ angular.module('main', ['ui.router'])
 		templateUrl: 'static/form-interests.html'
 	});
 
+
 	$urlRouterProvider.otherwise('/form/login');
 })
 
 // our controller for the form
 // =============================================================================
-.controller('navbarController', function($scope) {
-	$scope.links = {};
-})
-
 .controller('formController', function($scope) {
 
 	// we will store all of our form data in this object
